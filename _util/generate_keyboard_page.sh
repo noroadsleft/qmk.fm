@@ -15,7 +15,7 @@ cat _util/keyboards_template.md >&3
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
     keyboard=${line//\//_}
-    if [ -e "compiled/${keyboard}_default.hex" ] || [ -e "compiled/${keyboard}_default.bin" ]; then
+    if [ -e "compiled/${keyboard}_default.hex" ] || [ -e "compiled/${keyboard}_default.bin" ] || [ -e "compiled/${keyboard}_default.uf2" ]; then
         echo -n "| <i class='fa fa-github' aria-hidden='true'></i> [${line}](https://github.com/qmk/qmk_firmware/tree/master/keyboards/${line}) | " >&3
 
         if [ -e "compiled/${keyboard}_default.hex" ]; then
@@ -26,6 +26,11 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
         if [ -e "compiled/${keyboard}_default.bin" ]; then
           echo -n "[<i class='fa fa-download' aria-hidden='true'></i>](https://qmk.fm/compiled/${keyboard}_default.bin \"$line's latest default QMK firmware\") " >&3
           echo -n "[<span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-1x'></i><i class='fa fa-inverse fa-stack-1x psi-icon'>&Psi;</i></span>](qmk:https://qmk.fm/compiled/${keyboard}_default.bin \"Open ${keyboard}_default.bin in QMK Toolbox\") " >&3
+        fi
+
+        if [ -e "compiled/${keyboard}_default.uf2" ]; then
+          echo -n "[<i class='fa fa-download' aria-hidden='true'></i>](https://qmk.fm/compiled/${keyboard}_default.uf2 \"$line's latest default QMK firmware\") " >&3
+          echo -n "[<span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-1x'></i><i class='fa fa-inverse fa-stack-1x psi-icon'>&Psi;</i></span>](qmk:https://qmk.fm/compiled/${keyboard}_default.uf2 \"Open ${keyboard}_default.uf2 in QMK Toolbox\") " >&3
         fi
 
         if [ -e "_i18n/en/keyboards/${line/\/*/}.md" ]; then
